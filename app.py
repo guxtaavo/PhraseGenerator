@@ -11,7 +11,7 @@ def count_files_in_download_folder():
     return len(os.listdir(download_folder))
 
 def main():
-    inicio = "Hola "
+    inicio = "Hello "
     nomes = "Bastián-Cristóbal-Oliver-Damarys-Giselle-Avril-Antonella-Ainhoa-Paula-Patti-Priscilla"
     lista_nomes = nomes.split('-')
 
@@ -33,7 +33,7 @@ def main():
 
         # ABRIR O NAVEGADOR
         pyautogui.hotkey('win')
-        pyautogui.write('opera')
+        pyautogui.write('opera') # Coloque o seu navegador
         pyautogui.press('enter')
 
         # Espera o navegador abrir
@@ -44,10 +44,10 @@ def main():
         pyautogui.press('enter')
 
         # Tempo para o site carregar
-        time.sleep(5)  # Ajuste conforme necessário para dar tempo do site carregar
+        time.sleep(3.4)  # Ajuste conforme necessário para dar tempo do site carregar
 
         # Mover o mouse até a posição desejada
-        pyautogui.moveTo(810, 633)
+        pyautogui.moveTo(684, 543)
 
         # Clicar no ponto para focar no campo de texto
         pyautogui.click()
@@ -59,7 +59,7 @@ def main():
         time.sleep(1)
 
         # Mover o mouse até a posição de gerar a voz
-        pyautogui.moveTo(810, 797)
+        pyautogui.moveTo(659, 702)
 
         # Pausa para garantir que o site esteja pronto
         time.sleep(1)
@@ -74,7 +74,7 @@ def main():
         files_before = count_files_in_download_folder()
 
         # Mover o mouse até a posição do botão de download
-        pyautogui.moveTo(1133, 438)
+        pyautogui.moveTo(922, 417)
         pyautogui.click()
 
         # Esperar o tempo necessário para completar o download
@@ -83,17 +83,77 @@ def main():
         # Contar arquivos na pasta de downloads após o download
         files_after = count_files_in_download_folder()
 
+        # Fechar o navegador
+        pyautogui.hotkey('ctrl', 'w')
+
         # Verificar se o download foi bem-sucedido
         if files_after > files_before:
             print(f"Download bem-sucedido para: {frase}")
+            # ABRIR A PASTA DOWLOADS PARA RENOMEAR
+            pyautogui.hotkey('win')
+            pyautogui.write('e')
+            pyautogui.press('enter')
+            
+            # Tempo para o explorador de arquivos carregar
+            time.sleep(1.5)  # Ajuste conforme necessário para dar tempo do site carregar
+        
+            # Mover o mouse até a posição da pasta download
+            pyautogui.moveTo(95, 149)
+
+            # Clicar na pasta para abrir
+            pyautogui.click()
+            
+            # Tempo para a pasta download carregar
+            time.sleep(1.5)
+
+            # Mover o mouse até a posição do arquivo baixado na pasta download
+            pyautogui.moveTo(241, 119)
+
+            # Clicar para selecionar o arquivo
+            pyautogui.click()
+
+            # Tempo para carregar 
+            time.sleep(1.0)
+
+            # Pressionar tecla F2 para renomear o arquivo
+            pyautogui.hotkey('f2')
+
+            # Inicializa a frase
+            frase = frase.lower()
+
+            # Converte a frase em uma lista onde espaços são substituídos por '_'
+            nova_frase_lista = []
+            for letra in frase:
+                if letra == " ":
+                    nova_frase_lista.append('_')
+                else:
+                    nova_frase_lista.append(letra)
+
+            # Transforma a lista em uma string
+            nova_frase = ''.join(nova_frase_lista)
+
+            # Copiar a frase para a área de transferência
+            pyperclip.copy(nova_frase)
+
+            # Simular Ctrl+V para colar a frase formatada no nome do arquivo
+            pyautogui.hotkey('ctrl', 'v')
+            
+            # Esperar carregar
+            time.sleep(1.0)
+            
+            # Enter para por a frase
+            pyautogui.press('enter')
+
+            # Espera para não travar
+            time.sleep(1.0)
+
+            # Fechar o arquivo
+            pyautogui.hotkey('ctrl', 'w')
         else:
             # Se o número de arquivos não aumentar, registrar a frase no log
             with open(log_file, "a") as f:
                 f.write(frase + "\n")
             print(f"Falha ao baixar a frase: {frase}")
-
-        # Fechar o navegador
-        pyautogui.hotkey('ctrl', 'w')
 
 if __name__ == "__main__":
     main()
