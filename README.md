@@ -6,6 +6,8 @@ O **PhraseGenerator** é um automatizador para geração de falas em Python. Est
 
 Antes de começar, você precisará do seguinte:
 
+- Python instalado.
+- IDE instalada (recomendado: Visual Studio Code).
 - Um navegador compatível (recomendado: Google Chrome) com a extensão Adblock instalada.
 - Execute o comando 'pip install -r requirements.txt'
 - O arquivo `get_position.py` para capturar a posição do mouse.
