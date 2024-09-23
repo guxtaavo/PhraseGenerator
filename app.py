@@ -11,8 +11,8 @@ def count_files_in_download_folder():
     return len(os.listdir(download_folder))
 
 def main():
-    inicio = "Hello "
-    nomes = "Bastián-Cristóbal-Oliver-Damarys-Giselle-Avril-Antonella-Ainhoa-Paula-Patti-Priscilla"
+    inicio = "Muestrenme: "
+    nomes = "Vaca -Caballo-Chancho-Oveja -Pollito-Perro-Gato-Gallo -Leopardo-Canguro-Elefante-Jirafa-Oso-Tigre-Leon-Rinoceronte-Camello-Alce-Ciervo-Auto -Moto-tren-Bicicleta-Ambulancia"
     lista_nomes = nomes.split('-')
 
     # Arquivo de log para registrar os downloads que falharem
@@ -33,7 +33,7 @@ def main():
 
         # ABRIR O NAVEGADOR
         pyautogui.hotkey('win')
-        pyautogui.write('opera') # Coloque o seu navegador
+        pyautogui.write('chrome')
         pyautogui.press('enter')
 
         # Espera o navegador abrir
@@ -47,7 +47,7 @@ def main():
         time.sleep(3.4)  # Ajuste conforme necessário para dar tempo do site carregar
 
         # Mover o mouse até a posição desejada
-        pyautogui.moveTo(684, 543)
+        pyautogui.moveTo(646, 460)
 
         # Clicar no ponto para focar no campo de texto
         pyautogui.click()
@@ -59,7 +59,7 @@ def main():
         time.sleep(1)
 
         # Mover o mouse até a posição de gerar a voz
-        pyautogui.moveTo(659, 702)
+        pyautogui.moveTo(661, 619)
 
         # Pausa para garantir que o site esteja pronto
         time.sleep(1)
@@ -68,17 +68,17 @@ def main():
         pyautogui.click()
 
         # Tempo para gerar o arquivo de voz
-        time.sleep(4)
+        time.sleep(3)
 
         # Contar arquivos na pasta de downloads antes do download
         files_before = count_files_in_download_folder()
 
         # Mover o mouse até a posição do botão de download
-        pyautogui.moveTo(922, 417)
+        pyautogui.moveTo(915, 331)
         pyautogui.click()
 
         # Esperar o tempo necessário para completar o download
-        time.sleep(3)
+        time.sleep(2)
 
         # Contar arquivos na pasta de downloads após o download
         files_after = count_files_in_download_folder()
@@ -126,6 +126,18 @@ def main():
             for letra in frase:
                 if letra == " ":
                     nova_frase_lista.append('_')
+                elif letra in 'àáâãäÀÁÂÃÄ':
+                    nova_frase_lista.append('a')
+                elif letra in 'éêèëÉÊÈË':
+                    nova_frase_lista.append('e')
+                elif letra in 'íîìïÍÎÌÏ':
+                    nova_frase_lista.append('i')
+                elif letra in 'òóôõöÒÓÔÕÖ':
+                    nova_frase_lista.append('o')
+                elif letra in 'úûùüÚÛÙÜ':
+                    nova_frase_lista.append('u')
+                elif letra in 'çÇ':
+                    nova_frase_lista.append('c')
                 else:
                     nova_frase_lista.append(letra)
 
@@ -137,10 +149,10 @@ def main():
 
             # Simular Ctrl+V para colar a frase formatada no nome do arquivo
             pyautogui.hotkey('ctrl', 'v')
-            
+
             # Esperar carregar
             time.sleep(1.0)
-            
+
             # Enter para por a frase
             pyautogui.press('enter')
 
@@ -149,6 +161,7 @@ def main():
 
             # Fechar o arquivo
             pyautogui.hotkey('ctrl', 'w')
+
         else:
             # Se o número de arquivos não aumentar, registrar a frase no log
             with open(log_file, "a") as f:
